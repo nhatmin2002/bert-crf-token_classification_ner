@@ -679,7 +679,7 @@ def get_entity_bio(seq, id2label):
     return chunks
 
 
-def get_entities(seq, id2label, markup='bios'):
+def get_entities(seq, id2label, markup='bio'):
     '''
     :param seq:
     :param id2label:
