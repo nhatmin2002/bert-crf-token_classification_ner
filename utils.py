@@ -343,7 +343,7 @@ def calc_decode_acc(decode_labels, decode_preds):
     for ii, i in enumerate(decode_labels):
         if i == 'O':
             if pre_alpha == 'B' or pre_alpha == 'I':
-                #             print(new_labels)
+                print(new_labels)
                 new_labels.append([pre_type, [start, ii]])
             #         continue
             pre_alpha = 'O'
@@ -370,6 +370,7 @@ def calc_decode_acc(decode_labels, decode_preds):
             else:
                 if ii == 0:
                     if decode_preds[index_] != f"B-{i[0]}":
+                        print("s: ",f"B-{i[0]}")
                         all_right = False
                 else:
                     if decode_preds[index_] != f"I-{i[0]}":
