@@ -22,7 +22,7 @@ model_dict = {
         "nghuyong/ernie-1.0",  # 使用模型参数
     ),
     'roberta': (
-        'transformers.BertTokenizer',
+        'transformers.AutoTokenizer',
         'transformers.RobertaModel',
         'transformers.RobertaConfig',
         'vinai/phobert-base'
