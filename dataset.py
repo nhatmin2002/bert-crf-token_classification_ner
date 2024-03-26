@@ -43,9 +43,9 @@ class DataPrecessForSentence(Dataset):
             labels      : 标签取值为{0,1}，其中0表示负样本，1代表正样本。
         """
         if n_nums:
-            df = pd.read_csv(file, engine='python', encoding=csv_encoding, error_bad_lines=False, nrows=n_nums)
+            df = pd.read_csv(file, engine='python', encoding=csv_encoding, on_bad_lines='skip', nrows=n_nums)
         else:
-            df = pd.read_csv(file, engine='python', encoding=csv_encoding, error_bad_lines=False)
+            df = pd.read_csv(file, engine='python', encoding=csv_encoding, on_bad_lines='skip')
         # print(df)
         self.length = len(df)
         self.bert_tokenizer.model_max_length = max_seq_len
