@@ -295,9 +295,12 @@ from sklearn.metrics import classification_report
 def classication_report(true_labels, preds):
     label2id = load_json(json_dict)
     id2label = {v: k for k, v in label2id.items()}
+    print(id2label)
     labels = list(set(true_labels))
+    print(labels)
     labels.sort(key=lambda x: true_labels.index(x))
     target_names = [id2label[i] for i in labels]
+    print(target_names)
     print(classification_report(true_labels, preds, labels=labels, target_names=target_names))
 
 
