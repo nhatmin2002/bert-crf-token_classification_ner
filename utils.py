@@ -220,8 +220,11 @@ def validate(model, dataloader):
     # 评估
     label2id = load_json(json_dict)
     id2label = {v: k for k, v in label2id.items()}
-    decode_labels = [[id2label[j].replace('M', 'I').replace('E', 'I') for j in i] for i in all_labels]
-    decode_preds = [[id2label[j].replace('M', 'I').replace('E', 'I') for j in i] for i in all_prob]
+    #decode_labels = [[id2label[j].replace('M', 'I').replace('E', 'I') for j in i] for i in all_labels]
+    #decode_preds = [[id2label[j].replace('M', 'I').replace('E', 'I') for j in i] for i in all_prob]
+    decode_labels = [[id2label[j] for j in i] for i in all_labels]
+    decode_preds = [[id2label[j] for j in i] for i in all_prob]
+
     dict_all, dict_every_type = my_metrics(decode_labels, decode_preds)
     print(dict_all)
     print(dict_every_type)
