@@ -81,7 +81,7 @@ ignore_pad_token_for_loss = True
 overwrite_cache = None
 
 
-use_crf = True
+use_crf = False
 
 with open(json_dict, 'r', encoding='utf-8') as f:
     dict_ = json.load(f)
