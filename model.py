@@ -463,7 +463,6 @@ class BertSoftmaxForNer(nn.Module):
         self.device = torch.device("cuda")
         self.dropout = nn.Dropout(0.1)
         self.classifier = nn.Linear(768, num_labels)
-        self.init_weights()
 
     def forward(self, **input_):
         if 'labels' in input_:
