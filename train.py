@@ -59,30 +59,30 @@ def main():
     # )
     
     if use_crf == True:
-    no_decay = ["bias", "LayerNorm.weight"]
-    bert_param_optimizer = list(model.bert.named_parameters())
-    crf_param_optimizer = list(model.crf.named_parameters())
-    linear_param_optimizer = list(model.classifier.named_parameters())
-    bert_lr = 3e-5
-    crf_lr = 1e-3
-    linear_lr = 1e-3
-    optimizer_grouped_parameters = [
-        {'params': [p for n, p in bert_param_optimizer if not any(nd in n for nd in no_decay)],
-         'weight_decay': 0.0, 'lr': bert_lr},
-        {'params': [p for n, p in bert_param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0,
-         'lr': bert_lr},
-
-        {'params': [p for n, p in crf_param_optimizer if not any(nd in n for nd in no_decay)],
-         'weight_decay': 0.01, 'lr': crf_lr},
-        {'params': [p for n, p in crf_param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0,
-         'lr': crf_lr},
-
-        {'params': [p for n, p in linear_param_optimizer if not any(nd in n for nd in no_decay)],
-         'weight_decay': 0.01, 'lr': crf_lr},
-        {'params': [p for n, p in linear_param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0,
-         'lr': linear_lr}
-        ]
-
+        no_decay = ["bias", "LayerNorm.weight"]
+        bert_param_optimizer = list(model.bert.named_parameters())
+        crf_param_optimizer = list(model.crf.named_parameters())
+        linear_param_optimizer = list(model.classifier.named_parameters())
+        bert_lr = 3e-5
+        crf_lr = 1e-3
+        linear_lr = 1e-3
+        optimizer_grouped_parameters = [
+            {'params': [p for n, p in bert_param_optimizer if not any(nd in n for nd in no_decay)],
+             'weight_decay': 0.0, 'lr': bert_lr},
+            {'params': [p for n, p in bert_param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0,
+             'lr': bert_lr},
+    
+            {'params': [p for n, p in crf_param_optimizer if not any(nd in n for nd in no_decay)],
+             'weight_decay': 0.01, 'lr': crf_lr},
+            {'params': [p for n, p in crf_param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0,
+             'lr': crf_lr},
+    
+            {'params': [p for n, p in linear_param_optimizer if not any(nd in n for nd in no_decay)],
+             'weight_decay': 0.01, 'lr': crf_lr},
+            {'params': [p for n, p in linear_param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0,
+             'lr': linear_lr}
+            ]
+    
         optimizer = AdamW(optimizer_grouped_parameters, lr=bert_lr)
     else:
         optimizer = AdamW(model.parameters(), lr=lr)
