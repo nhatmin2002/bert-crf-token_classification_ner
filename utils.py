@@ -350,7 +350,9 @@ def calc_decode_acc(decode_labels, decode_preds):
             pre_type = ''
         else:
             # print(i)
-            alpha, type_ = i.rsplit('-', 1)
+            parts = i.split('-')
+            alpha = parts[0]
+            type_ = '-'.join(parts[1:])
             if alpha == 'B':
                 if pre_alpha == 'I':
                     new_labels.append([pre_type, [start, ii]])
@@ -584,12 +586,14 @@ def get_entity_bio(seq, id2label):
                 chunks.append(chunk)
             chunk = [-1, -1, -1]
             chunk[1] = indx
-            chunk[0] = tag.rsplit('-', 1)[1]
+            parts =tag.split('-')
+            chunk[0] = '-'.join(parts[1:])
             chunk[2] = indx
             if indx == len(seq) - 1:
                 chunks.append(chunk)
         elif tag.startswith('I-') and chunk[1] != -1:
-            _type = tag.rsplit('-', 1)[1]
+            parts =tag.split('-')
+            _type = '-'.join(parts[1:])
             if _type == chunk[0]:
                 chunk[2] = indx
 
