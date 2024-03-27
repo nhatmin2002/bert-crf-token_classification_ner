@@ -2,6 +2,7 @@
 from torch import nn
 from config import *
 from utils import eval_object
+from torch.nn import CrossEntropyLoss
 
 ClassifyClass = eval_object(model_dict[MODEL][1])
 ClassifyConfig = eval_object(model_dict[MODEL][2])
@@ -455,4 +456,44 @@ class BertModel(nn.Module):
             outputs = (-1 * loss,) + outputs
         return outputs  # (loss), scores
 
+class BertSoftmaxForNer(nn.Module):
+    def __init__(self):
+        super(BertSoftmaxForNer, self).__init__()
+        self.bert = ClassifyClass.from_pretrained(bert_path_or_name)
+        self.device = torch.device("cuda")
+        self.dropout = nn.Dropout(0.1)
+        self.classifier = nn.Linear(768, num_labels)
+        self.init_weights()
 
+    def forward(self, **input_):
+        if 'labels' in input_:
+            labels = input_.pop('labels', '')
+        else:
+            labels = None
+        outputs =self.bert(**input_)
+        sequence_output = outputs[0]
+        #print("bert output: ", sequence_output.size())
+        sequence_output = self.dropout(sequence_output)
+        logits = self.classifier(sequence_output)
+        #print("logits: ", logits.size())
+        #outputs = logits
+        outputs = (logits,) + outputs[2:]  # add hidden states and attention if they are here
+        if labels is not None:
+            #print("labels: ", labels.size())
+            # assert self.loss_type in ['lsr', 'focal', 'ce']
+            # if self.loss_type == 'lsr':
+            #     loss_fct = LabelSmoothingCrossEntropy(ignore_index=0)
+            # elif self.loss_type == 'focal':
+            #     loss_fct = FocalLoss(ignore_index=0)
+            # else:
+            loss_fct = CrossEntropyLoss()
+            # Only keep active parts of the loss
+            # if attention_mask is not None:
+            #     active_loss = attention_mask.view(-1) == 1
+            #     active_logits = logits.view(-1, self.num_labels)[active_loss]
+            #     active_labels = labels.view(-1)[active_loss]
+            #     loss = loss_fct(active_logits, active_labels)
+            # else:
+            loss = loss_fct(logits.view(-1, num_labels), labels.view(-1))
+            outputs = (loss,) + outputs
+        return outputs  # (loss), scores, (hidden_states), (attentions)
