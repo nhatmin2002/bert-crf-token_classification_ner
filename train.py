@@ -57,7 +57,8 @@ def main():
     #     dev_dataset, shuffle=True, collate_fn=data_collator, batch_size=batch_size
 
     # )
-
+    
+    if use_crf == True:
     no_decay = ["bias", "LayerNorm.weight"]
     bert_param_optimizer = list(model.bert.named_parameters())
     crf_param_optimizer = list(model.crf.named_parameters())
@@ -82,7 +83,6 @@ def main():
          'lr': linear_lr}
         ]
 
-    if use_crf == True:
         optimizer = AdamW(optimizer_grouped_parameters, lr=bert_lr)
     else:
         optimizer = AdamW(model.parameters(), lr=lr)
