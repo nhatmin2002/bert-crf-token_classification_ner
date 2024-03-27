@@ -43,7 +43,7 @@ epochs = 20
 batch_size = 32
 # batch_size = 1
 # batch_size = 10
-lr = 1e-5  # 学习率
+lr = 3e-5  # 学习率
 patience = 40  # early stop 不变好 就停止
 max_grad_norm = 10.0  # 梯度修剪
 target_file = 'models/best.pth.tar'  # 模型存储路径
@@ -56,8 +56,8 @@ freeze_bert_head = False  # freeze bert提取特征部分的权重
 
 
 # 切换任务时 数据配置
-csv_rows = ['raw_sen', 'label']  # csv的行标题，文本 和 类（目前类必须是列表）
-
+csv_rows = ['sen', 'label']  # csv的行标题，文本 和 类（目前类必须是列表）
+#'raw_sen'
 dir_name = 'cner'
 train_file = f"data/{dir_name}/train.csv"
 dev_file = f"data/{dir_name}/dev.csv"
@@ -74,7 +74,7 @@ test_pred_out = f"data/{dir_name}/test_data_predict.csv"
 
 PREFIX = ''
 # max_src_length = 400
-max_seq_len = 150
+max_seq_len = 256
 # max_src_length = 128
 # max_target_length = 64
 ignore_pad_token_for_loss = True
