@@ -5,6 +5,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, WeightedRandomSampler
 from dataset import DataPrecessForSentence
+from torch.nn import CrossEntropyLoss
+
 from utils import train, validate, eval_object, my_plot
 # from transformers import BertTokenizer, AutoTokenizer, DataCollatorForSeq2Seq
 from model import BertModel,BertSoftmaxForNer
