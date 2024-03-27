@@ -37,7 +37,14 @@ def main():
     # dev_loader = DataLoader(dev_data, shuffle=True, batch_size=batch_size)
     # -------------------- Model definition ------------------- #
     print("\t* Building model...")
-    model = BertModel().to(device)
+    if use_crf == True:
+        model = BertModel().to(device)
+        print(model = BertModel().to(device))
+
+    else:
+        model = BertSoftmaxForNer().to(device)
+
+    #model = BertModel().to(device)
     # print(processed_datasets_train)
     # train_dataset = processed_datasets_train["train"]
     # dev_dataset = processed_datasets_dev["train"]
@@ -75,8 +82,11 @@ def main():
          'lr': linear_lr}
         ]
 
-    # optimizer = AdamW(model.parameters(), lr=lr)
-    optimizer = AdamW(optimizer_grouped_parameters, lr=bert_lr)
+    if use_crf == True:
+        optimizer = AdamW(optimizer_grouped_parameters, lr=bert_lr)
+    else:
+        optimizer = AdamW(model.parameters(), lr=lr)
+
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="max", factor=0.85, patience=0)
     best_score = 0.0
     start_epoch = 1
