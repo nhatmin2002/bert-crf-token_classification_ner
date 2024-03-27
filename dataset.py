@@ -82,7 +82,7 @@ class DataPrecessForSentence(Dataset):
         sen_max_len = max([len(i) for i in sentences])
         max_len = min(max_seq_len, sen_max_len)
         sentences = [i[:max_len-2] for i in sentences]
-        sentences_list = [['[CLS]'] + [i for i in sen] + ['[SEP]'] for sen in sentences]
+        sentences_list = [['<s>'] + [i for i in sen] + ['</s>'] for sen in sentences]
         input_ids = [self.bert_tokenizer.convert_tokens_to_ids(sen) for sen in sentences_list]
         # print(input_ids)
         # print(f"max_len 为{max_len}")
