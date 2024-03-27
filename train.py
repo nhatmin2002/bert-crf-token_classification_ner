@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader, WeightedRandomSampler
 from dataset import DataPrecessForSentence
 from utils import train, validate, eval_object, my_plot
 # from transformers import BertTokenizer, AutoTokenizer, DataCollatorForSeq2Seq
-from model import BertModel
+from model import BertModel,BertSoftmaxForNer
 from transformers.optimization import AdamW
 from config import *
 
