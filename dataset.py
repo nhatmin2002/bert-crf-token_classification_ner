@@ -83,7 +83,13 @@ class DataPrecessForSentence(Dataset):
         max_len = min(max_seq_len, sen_max_len)
         sentences = [i[:max_len-2] for i in sentences]
         print(sentences[0])
-        sentences_list = [['<s>'] + [i for i in sen] + ['</s>'] for sen in sentences]
+        sentences_words = []
+        for sentence in sentences:
+            # Sử dụng biểu thức regular expression để tìm các từ trong câu và thêm chúng vào danh sách
+            words = sentence.split()
+            sentences_words.append(words)        
+
+        sentences_list = [['<s>'] + [i for i in sen] + ['</s>'] for sen in sentences_words]
         print(sentences_list[0])
         input_ids = [self.bert_tokenizer.convert_tokens_to_ids(sen) for sen in sentences_list]
         #print(input_ids)
