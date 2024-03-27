@@ -14,7 +14,9 @@ from transformers.optimization import AdamW
 from config import *
 
 Tokenizer = eval_object(model_dict[MODEL][0])
+print(model_dict[MODEL][0])
 bert_path_or_name = model_dict[MODEL][-1]
+print( model_dict[MODEL][-1])
 
 
 
