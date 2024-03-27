@@ -56,7 +56,7 @@ freeze_bert_head = False  # freeze bert提取特征部分的权重
 
 
 # 切换任务时 数据配置
-csv_rows = ['sen', 'label']  # csv的行标题，文本 和 类（目前类必须是列表）
+csv_rows = ['raw_sen', 'label']  # csv的行标题，文本 和 类（目前类必须是列表）
 #'raw_sen'
 dir_name = 'cner'
 train_file = f"data/{dir_name}/train.csv"
