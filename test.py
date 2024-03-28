@@ -52,8 +52,8 @@ def main():
     id2label = {v: k for k, v in label2id.items()}
 
     if all_labels:
-        decode_labels = [[id2label[j].replace('M', 'I').replace('E', 'I') for j in i] for i in all_labels]
-        decode_preds = [[id2label[j].replace('M', 'I').replace('E', 'I') for j in i] for i in all_pred]
+        decode_labels = [[id2label[j] for j in i] for i in all_labels]
+        decode_preds = [[id2label[j] for j in i] for i in all_prob]
 
         dict_all, dict_every_type = my_metrics(decode_labels, decode_preds)
         print(dict_all)
