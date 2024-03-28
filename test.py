@@ -43,7 +43,7 @@ def main():
                                                                                                             total_time,
                                                                                                             (
                                                                                                                     accuracy * 100)))
-    df = pd.read_csv(test_file, engine='python', encoding=csv_encoding, error_bad_lines=False)
+    df = pd.read_csv(test_file, engine='python', encoding=csv_encoding, on_bad_lines='skip')
     df['pred'] = all_pred
     df['pred_decode'] = decoded_preds
 
