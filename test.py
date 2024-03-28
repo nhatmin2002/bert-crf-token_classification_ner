@@ -53,7 +53,7 @@ def main():
 
     if all_labels:
         decode_labels = [[id2label[j] for j in i] for i in all_labels]
-        decode_preds = [[id2label[j] for j in i] for i in all_prob]
+        decode_preds = [[id2label[j] for j in i] for i in all_pred]
 
         dict_all, dict_every_type = my_metrics(decode_labels, decode_preds)
         print(dict_all)
