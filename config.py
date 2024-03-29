@@ -39,7 +39,7 @@ MODEL = 'roberta'
 # MODEL = 'albert'
 # MODEL = 'bert'
 
-epochs = 1
+epochs = 20
 batch_size = 32
 # batch_size = 1
 # batch_size = 10
